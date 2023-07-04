@@ -8,6 +8,7 @@
 <script>
 import PaymentsDisplay from './components/PaymentsDisplay.vue';
 import AddList from './components/AddList.vue';
+import { mapActions, mapGetters, mapMutations, mapState } from 'vuex';
 
 export default {
   name: 'App',
@@ -17,44 +18,26 @@ export default {
   },
   data() {
     return {
-      paymentList: [],
       
     };
   },
 
   methods: {
-    fetchData() {
-      return [
-        {
-          date: '28.03.23',
-          category: 'foot',
-          value: 169,
-        },
-        {
-          date: '29.03.23',
-          category: 'transport',
-          value: 250,
-        },
-        {
-          date: '29.03.23',
-          category: 'foot',
-          value: 49,
-        },
-        {
-          date: '30.03.23',
-          category: 'foot',
-          value: 211,
-        },
-      ];
-    },
 
     addNewPay(data){
-      this.paymentList.push(data);
-    }
+      this.ADD_PAYMENT(data);
+    },
+    ...mapMutations(["SET_PAYMENT", "ADD_PAYMENT"])
+  },
+
+  computed:{
+    ...mapState(['paymentList',]),
+    ...mapGetters(['getPayment', 'getFullPayment']),
+    ...mapActions(['fetchData']),
   },
 
   created(){
-    this.paymentList = this.fetchData();
+    this.SET_PAYMENT(this.fetchData());
   }
 }
 </script>

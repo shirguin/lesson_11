@@ -1,7 +1,8 @@
 <template>
     <div>
+        Общая сумма расходов: {{ getFV }}
         <div v-for="item in items" :key="item.id">
-        {{ item.date }}
+            {{ item.category }} {{ item.date }}  {{ item.value }}
         </div>
     </div>
 </template>
@@ -9,7 +10,7 @@
 <script>
 export default {
     name: 'PaymentsDisplay',
-    props:{
+    props: {
         items: {
             type: Array,
             default() {
@@ -20,12 +21,13 @@ export default {
 
     data() {
         return {
-            
+
         };
     },
-
-    mounted() {
-        
+    computed:{
+getFV(){
+    return this.$store.getters.getFullPayment;
+}
     },
 
     methods: {
@@ -34,6 +36,4 @@ export default {
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
